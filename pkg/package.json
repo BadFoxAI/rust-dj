@@ -1,0 +1,15 @@
+{
+  "name": "rust_dj",
+  "type": "module",
+  "version": "2.2.0",
+  "files": [
+    "rust_dj_bg.wasm",
+    "rust_dj.js",
+    "rust_dj.d.ts"
+  ],
+  "main": "rust_dj.js",
+  "types": "rust_dj.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RUST-DJ</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎛️</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="toolbar">
+    <div class="brand">RUST-DJ</div>
+    <div class="tab-group">
+      <button class="tab-btn active" id="tab-player">🎚️</button>
+      <button class="tab-btn" id="tab-dual">🎛️</button>
+      <button class="tab-btn" id="tab-playlist">📂</button>
+      <button class="tab-btn" id="tab-sys">⚙️</button>
+    </div>
+  </div>
+
+  <div class="view-container active" id="view-player">
+    <div class="wave-section">
+    <div class="wave-header">
+      <div class="track-browser" id="s1-track-browser">
+          <button class="browser-nav" id="s1-btn-prev">◀</button>
+          <div class="browser-display" id="s1-btn-load">
+              <div class="browser-title" id="s1-browser-title">NO TRACKS</div>
+              <div class="browser-meta" id="s1-browser-meta">GO TO 📂 TAB</div>
+          </div>
+          <button class="browser-nav" id="s1-btn-next">▶</button>
+      </div>
+      <div class="time-bpm-wrap">
+          <div class="time-readout" id="s1-time-display">00:00.0 | -00:00.0</div>
+          <div class="bpm-readout" id="s1-bpm-display">BPM: --</div>
+      </div>
+    </div>
+    <div class="wave-canvas-wrapper" id="s1-wave-wrapper">
+      <canvas class="wave-canvas" id="s1-canvas"></canvas>
+      <div class="playhead-line"></div>
+      
+    </div>
+    </div>
+    
+    <div class="single-deck">
+      <div class="hw-module tempo-module tempo-col">
+        <div class="hw-title"><span id="s1-lbl-tempo" class="clickable-label">TEMPO</span></div>
+        <div class="tempo-container">
+            <div class="fader-wrap fader-h hidden-landscape" id="s1-tempo-h" title="Double tap to reset"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div>
+            <div class="fader-wrap fader-v hidden-desktop" id="s1-tempo-v" title="Double tap to reset"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div>
+            <div class="tempo-readout-wrap"><span class="pitch-readout" id="s1-pitch-readout">0.00%</span></div>
+        </div>
+      </div>
+      <div class="hw-module mixer-module">
+        <div class="hw-title"><span style="font-size: 0.65rem; font-weight: 900; color: #888; letter-spacing: 1px;">MIXER</span></div>
+        <div class="mixer-strip">
+            <div class="mixer-col"><div id="s1-lbl-hi" class="clickable-label">HI</div><div class="fader-wrap fader-v" id="s1-eq-hi"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+            <div class="mixer-col"><div id="s1-lbl-mid" class="clickable-label">MID</div><div class="fader-wrap fader-v" id="s1-eq-mid"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+            <div class="mixer-col"><div id="s1-lbl-low" class="clickable-label">LOW</div><div class="fader-wrap fader-v" id="s1-eq-low"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+            <div class="mixer-col"><div id="s1-lbl-flt" class="clickable-label">FLT</div><div class="fader-wrap fader-v" id="s1-filter-v"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb thumb-filter"></div></div></div>
+            <div class="mixer-col"><div id="s1-lbl-vol" class="clickable-label">VOL</div><div class="fader-wrap fader-v" id="s1-vol-v"><div class="fader-track"></div><div class="fader-thumb thumb-vol"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="single-transport">
+      <div class="transport-left"><div class="btn-circle btn-motor" id="s1-btn-motor">MTR<br>ON</div></div>
+      <div class="transport-center">
+          <div class="btn-circle btn-rewind" id="s1-btn-rewind">|&lt;</div>
+          <div class="btn-circle btn-cue" id="s1-btn-cue">CUE</div>
+          <div class="btn-circle btn-play" id="s1-btn-play">▶/||</div>
+      </div>
+      <div class="transport-right"></div>
+    </div>
+    
+  </div>
+
+  <div class="view-container" id="view-dual">
+      <div class="dual-wave-container">
+          <div class="wave-section dual-wave deck-a">
+    <div class="wave-header">
+      <div class="track-browser" id="da-track-browser">
+          <button class="browser-nav" id="da-btn-prev">◀</button>
+          <div class="browser-display" id="da-btn-load">
+              <div class="browser-title" id="da-browser-title">NO TRACKS</div>
+              <div class="browser-meta" id="da-browser-meta">GO TO 📂 TAB</div>
+          </div>
+          <button class="browser-nav" id="da-btn-next">▶</button>
+      </div>
+      <div class="time-bpm-wrap">
+          <div class="time-readout" id="da-time-display">00:00.0 | -00:00.0</div>
+          <div class="bpm-readout" id="da-bpm-display">BPM: --</div>
+      </div>
+    </div>
+    <div class="wave-canvas-wrapper" id="da-wave-wrapper">
+      <canvas class="wave-canvas" id="da-canvas"></canvas>
+      <div class="playhead-line"></div>
+      <div class="wave-watermark">A</div>
+    </div>
+    </div>
+          <div class="wave-section dual-wave deck-b">
+    <div class="wave-header">
+      <div class="track-browser" id="db-track-browser">
+          <button class="browser-nav" id="db-btn-prev">◀</button>
+          <div class="browser-display" id="db-btn-load">
+              <div class="browser-title" id="db-browser-title">NO TRACKS</div>
+              <div class="browser-meta" id="db-browser-meta">GO TO 📂 TAB</div>
+          </div>
+          <button class="browser-nav" id="db-btn-next">▶</button>
+      </div>
+      <div class="time-bpm-wrap">
+          <div class="time-readout" id="db-time-display">00:00.0 | -00:00.0</div>
+          <div class="bpm-readout" id="db-bpm-display">BPM: --</div>
+      </div>
+    </div>
+    <div class="wave-canvas-wrapper" id="db-wave-wrapper">
+      <canvas class="wave-canvas" id="db-canvas"></canvas>
+      <div class="playhead-line"></div>
+      <div class="wave-watermark">B</div>
+    </div>
+    </div>
+      </div>
+      <div class="dual-deck-container">
+          <div class="dual-deck deck-a">
+    <div class="dual-mixer-strip hw-module">
+        <div class="mixer-col tempo-col"><div id="da-lbl-tempo" class="clickable-label">TMP</div><div class="fader-wrap fader-v fader-thin" id="da-tempo-v"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="da-lbl-hi" class="clickable-label">HI</div><div class="fader-wrap fader-v fader-thin" id="da-eq-hi"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="da-lbl-mid" class="clickable-label">MID</div><div class="fader-wrap fader-v fader-thin" id="da-eq-mid"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="da-lbl-low" class="clickable-label">LOW</div><div class="fader-wrap fader-v fader-thin" id="da-eq-low"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="da-lbl-flt" class="clickable-label">FLT</div><div class="fader-wrap fader-v fader-mid" id="da-filter-v"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb thumb-filter"></div></div></div>
+        <div class="mixer-col"><div id="da-lbl-vol" class="clickable-label">VOL</div><div class="fader-wrap fader-v fader-fat" id="da-vol-v"><div class="fader-track"></div><div class="fader-thumb thumb-vol"></div></div></div>
+    </div>
+    <div class="dual-transport">
+        <div class="transport-left"><div class="btn-circle btn-motor" id="da-btn-motor">MTR</div></div>
+        <div class="transport-center">
+            <div class="btn-circle btn-rewind" id="da-btn-rewind">|&lt;</div>
+            <div class="btn-circle btn-cue" id="da-btn-cue">CUE</div>
+            <div class="btn-circle btn-play" id="da-btn-play">▶</div>
+        </div>
+        <div class="transport-right"></div>
+    </div>
+    </div>
+          <div class="dual-deck deck-b">
+    <div class="dual-mixer-strip hw-module">
+        <div class="mixer-col tempo-col"><div id="db-lbl-tempo" class="clickable-label">TMP</div><div class="fader-wrap fader-v fader-thin" id="db-tempo-v"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="db-lbl-hi" class="clickable-label">HI</div><div class="fader-wrap fader-v fader-thin" id="db-eq-hi"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="db-lbl-mid" class="clickable-label">MID</div><div class="fader-wrap fader-v fader-thin" id="db-eq-mid"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="db-lbl-low" class="clickable-label">LOW</div><div class="fader-wrap fader-v fader-thin" id="db-eq-low"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb"></div></div></div>
+        <div class="mixer-col"><div id="db-lbl-flt" class="clickable-label">FLT</div><div class="fader-wrap fader-v fader-mid" id="db-filter-v"><div class="center-detent"></div><div class="fader-track"></div><div class="fader-thumb thumb-filter"></div></div></div>
+        <div class="mixer-col"><div id="db-lbl-vol" class="clickable-label">VOL</div><div class="fader-wrap fader-v fader-fat" id="db-vol-v"><div class="fader-track"></div><div class="fader-thumb thumb-vol"></div></div></div>
+    </div>
+    <div class="dual-transport">
+        <div class="transport-left"></div>
+        <div class="transport-center">
+            <div class="btn-circle btn-rewind" id="db-btn-rewind">|&lt;</div>
+            <div class="btn-circle btn-cue" id="db-btn-cue">CUE</div>
+            <div class="btn-circle btn-play" id="db-btn-play">▶</div>
+        </div>
+        <div class="transport-right"><div class="btn-circle btn-motor" id="db-btn-motor">MTR</div></div>
+    </div>
+    </div>
+      </div>
+  </div>
+
+  <div class="view-container" id="view-playlist">
+    <div class="pl-header">
+        <h2 style="margin:0;">LIBRARY</h2>
+        <div><button class="btn-flat" id="btn-add-tracks">+ ADD FILES</button><input type="file" id="file-input-real" class="file-input-real" accept="audio/*" multiple></div>
+    </div>
+    <div id="track-list"></div>
+    <div style="padding: 15px; text-align: center; border-top: 1px solid #222;"><button class="btn-flat" id="btn-wipe" style="border-color:#ff3333; color:#ff3333;">WIPE CACHE</button></div>
+  </div>
+
+  <div class="view-container" id="view-sys">
+    <h2 style="margin:0 0 20px 0; color:#fff;">PREFERENCES</h2>
+    <div class="setting-group">
+        <div class="setting-row" style="flex-direction: column; align-items: flex-start;">
+            <label>Tap Labels to Reset Faders</label>
+            <div class="radio-group"><label><input type="radio" name="reset-mode" value="off"> Off</label><label><input type="radio" name="reset-mode" value="snap"> Snap</label><label><input type="radio" name="reset-mode" value="ease" checked> Ease</label></div>
+        </div>
+        <div class="setting-row" id="row-ease-time"><label>Ease Duration (ms)</label><div><span id="lbl-ease-time" style="display:inline-block; width:45px; text-align:right; margin-right:5px; color:var(--accent);">200</span><input type="range" id="rng-ease-time" min="50" max="5000" step="50" value="200"></div></div>
+    </div>
+    <div class="setting-group">
+        <div class="setting-row"><label>Show Tempo Fader</label><input type="checkbox" id="toggle-tempo" checked></div>
+        <div class="setting-row"><label>Enable Motor Kill Button</label><input type="checkbox" id="toggle-motor" checked></div>
+    </div>
+    <div class="setting-group">
+        <div class="setting-row"><label>Wind Down Time (s)</label><div><span id="lbl-wind-down" style="display:inline-block; width:30px; text-align:right; margin-right:5px; color:var(--accent);">1.5</span><input type="range" id="rng-wind-down" min="0.1" max="5.0" step="0.1" value="1.5"></div></div>
+        <div class="setting-row"><label>Wind Up Time (s)</label><div><span id="lbl-wind-up" style="display:inline-block; width:30px; text-align:right; margin-right:5px; color:var(--accent);">1.0</span><input type="range" id="rng-wind-up" min="0.1" max="5.0" step="0.1" value="1.0"></div></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
